@@ -28,3 +28,8 @@ def ratelimit_handler(e):
 if __name__ == "__main__":
     app.run(port=5000)
     
+@app.after_request
+def add_security_headers(response):
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    return response
